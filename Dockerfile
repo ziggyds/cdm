@@ -1,6 +1,6 @@
 FROM python:3.13-slim
 WORKDIR /app
-COPY ddm.py ./
+COPY cdm.py ./
 COPY db_configs.json ./
 COPY static ./static
 COPY requirements.txt ./
