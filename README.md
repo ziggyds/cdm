@@ -8,8 +8,16 @@
  
  Or 
  
-`docker run --name ddm -d -v /var/run/docker.sock:/var/run/docker.sock -p 5000:5000 ziggyds/ddm:latest`
+`docker run --name cdm -d -v /var/run/docker.sock:/var/run/docker.sock -p 5000:5000 ziggyds/cdm:latest`
+
+Custom db config file
+
+`docker run --name cdm -d -v /var/run/docker.sock:/var/run/docker.sock -v ./db_configs.json:/app/db_configs.json -p 5000:5000 ziggyds/cdm:latest`
 
  Docker build
 
  `docker build -f docker/Dockerfile -t cdm:latest -t cdm:v0.0.1 .`
+
+## Screenshot
+![CDM Screenshot](cdm_screenshot.png)
+
