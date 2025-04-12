@@ -26,7 +26,7 @@ jobs:
     - name: Build and Push
       uses: docker/build-push-action@v5
       with:
-        context: ./docker
+        context: .
         file: ./docker/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/cdm:latest,${{ secrets.DOCKERHUB_USERNAME }}/cdm:${{ github.sha }}
