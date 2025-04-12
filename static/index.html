@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Container Manager</title>
+    <link rel="stylesheet" href="/static/css/select2.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <!-- Left section for future use -->
+        </aside>
+        <main class="main-content">
+            <header>
+                <h1>Container Database Manager</h1>
+            </header>
+            <section>
+                <h2>Create Database Container</h2>
+                <form id="create-container-form">
+                    <label for="dbType">Database Type:</label>
+                    <select id="dbType" name="type">
+                        <!-- Options will be dynamically populated -->
+                    </select>
+                
+                    <label for="tag">Image Tag:</label>
+                    <select id="tag" name="tag">
+                        <!-- Options will be dynamically populated -->
+                    </select>
+                
+                    <label for="name">Container Name:</label>
+                    <input type="text" id="name" name="name" required>
+                
+                    <label for="user">Username:</label>
+                    <input type="text" id="user" name="user" required>
+                
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                
+                    <label for="port">Port:</label>
+                    <input type="number" id="port" name="port" placeholder="Optional">
+                
+                    <button type="submit">Create Container</button>
+                </form>
+                <p id="status"></p> <!-- Status message will be displayed here -->
+            </section>
+
+            <section>
+                <h2>Existing Containers</h2>
+                <div id="container-list" class="container-grid">
+                    <!-- Dynamic content will be added here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/select2.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+    "postgres": {
+        "image": "postgres",
+        "default_port": 5432,
+        "env_vars": ["POSTGRES_USER", "POSTGRES_PASSWORD"],
+        "repo": "library/postgres"
+    },
+    "mysql": {
+        "image": "mysql",
+        "default_port": 3306,
+        "env_vars": ["MYSQL_ROOT_USER", "MYSQL_ROOT_PASSWORD"],
+        "repo": "library/mysql"
+    },
+    "mariadb": {
+        "image": "mariadb",
+        "default_port": 3306,
+        "env_vars": ["MARIADB_USER", "MARIADB_PASSWORD"],
+        "repo": "library/mariadb"
+    },
+    "mongo": {
+        "image": "mongo",
+        "default_port": 27017,
+        "env_vars": ["MONGO_INITDB_ROOT_USERNAME", "MONGO_INITDB_ROOT_PASSWORD"],
+        "repo": "library/mongo"
+    },
+    "couchbase": {
+        "image": "couchbase",
+        "default_port": 8091,
+        "env_vars": ["CB_USERNAME", "CB_PASSWORD"],
+        "repo": "couchbase"
+    },
+    "cockroachdb": {
+        "image": "cockroachdb/cockroach",
+        "default_port": 26257,
+        "env_vars": ["COCKROACH_MAX_OFFSET"],
+        "repo": "cockroachdb/cockroach"
+    },
+    "cassandra": {
+        "image": "cassandra",
+        "default_port": 9042,
+        "env_vars": ["CASSANDRA_CLUSTER_NAME", "CASSANDRA_SEEDS"],
+        "repo": "library/cassandra"
+    }
+}

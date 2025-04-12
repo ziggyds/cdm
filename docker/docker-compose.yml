@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  docker-db-manager:
+    image: ziggyds/cdm:latest
+    container_name: cdm
+    ports:
+      - "5000:5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DDM_HOST=0.0.0.0
+      - TZ=Europe/Brussels
+    restart: unless-stopped

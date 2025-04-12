@@ -1,0 +1,68 @@
+name: Build and Push Docker Image
+
+on:
+  # Allow manual workflow triggers
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and Push
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./docker/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/cdm:latest,${{ secrets.DOCKERHUB_USERNAME }}/cdm:${{ github.sha }}
+    
+    - name: Create app archive
+      run: |
+        mkdir -p release-artifacts
+        cp -r cdm.py db_configs.json static requirements.txt release-artifacts/
+        cd release-artifacts
+        zip -r ../cdm-app.zip .
+    
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        # Get commit messages since last tag or last 10 commits if no tags
+        if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+          SINCE=$(git describe --tags --abbrev=0)
+          COMMITS=$(git log --pretty=format:"- %s (%h)" $SINCE..HEAD)
+        else
+          COMMITS=$(git log -10 --pretty=format:"- %s (%h)")
+        fi
+        
+        echo "COMMITS<<EOF" >> $GITHUB_OUTPUT
+        echo "## Changes in this release:" >> $GITHUB_OUTPUT
+        echo "$COMMITS" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Release ${{ github.sha }}
+        tag_name: v-${{ github.run_number }}-${{ github.run_attempt }}
+        body: ${{ steps.release_notes.outputs.COMMITS }}
+        files: |
+          cdm-app.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
