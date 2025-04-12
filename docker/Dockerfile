@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ../ddm.py ./
 COPY ../db_configs.json ./
 COPY ../static ./static
-COPY ../requirements.txt ./
+COPY requirements.txt ./
 RUN pip install -r requirements.txt
 EXPOSE 5000
 
